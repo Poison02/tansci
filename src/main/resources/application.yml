@@ -1,0 +1,41 @@
+server:
+  port: 8080
+  servlet:
+    context-path: /tansci
+
+spring:
+  profiles:
+    active: dev
+  jackson:
+    time-zone: GMT+8
+    date-format: yyyy-MM-dd HH:MM:ss
+  servlet:
+    multipart:
+      enabled: true
+      max-request-size: 100MB
+      max-file-size: 100MB
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  mail:
+    host: smtp.qq.com
+    username: 2069820192@qq.com
+    password: rxumsshgsmfieafb
+    port: 587
+    default-encoding: utf-8
+    # 配置SSL加密工厂
+    properties:
+      mail:
+        smtp:
+          socketFactoryClass: javax.net.ssl.SSLSocketFactory
+        # 标识开启DEBUG模式，这样，邮件发送过程的日志会在控制台打印出来，方便排查错误
+        debug: true
+mybatis-plus:
+  mapper-locations: classpath:mapper/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+    map-underscore-to-camel-case: true
+
+version: 1.0.0
+
+
