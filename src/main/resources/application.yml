@@ -20,7 +20,7 @@ spring:
   mail:
     host: smtp.qq.com
     username: 2069820192@qq.com
-    password: rxumsshgsmfieafb
+    password: 
     port: 587
     default-encoding: utf-8
     # 配置SSL加密工厂
