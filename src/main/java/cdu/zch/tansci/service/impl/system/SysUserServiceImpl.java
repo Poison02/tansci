@@ -54,12 +54,12 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
 
         List<SysDic> typeList = sysUserPage.getSize() > 0 ? sysDicService.list(Wrappers.<SysDic>lambdaQuery().eq(SysDic::getGroupName, "user_type")) : new ArrayList<>();
         sysUserPage.getRecords().forEach(item -> {
-            Optional<SysDic> sOptional = typeList.stream().filter(s -> s.getDicValue() == item.getType()).findFirst();
+            Optional<SysDic> sOptional = typeList.stream().filter(s -> s.getDicValue().equals(item.getType())).findFirst();
             if (sOptional.isPresent()) {
                 item.setTypeName(sOptional.get().getDicLabel());
             }
-            item.setGenderName(Enums.getVlaueByGroup(item.getGender(), "user_gender"));
-            item.setDelFlagName(Enums.getVlaueByGroup(item.getDelFlag(), "del_falg"));
+            item.setGenderName(Enums.getValueByGroup(item.getGender(), "user_gender"));
+            item.setDelFlagName(Enums.getValueByGroup(item.getDelFlag(), "del_falg"));
         });
         return sysUserPage;
     }
@@ -143,7 +143,7 @@ public class SysUserServiceImpl extends ServiceImpl<SysUserMapper, SysUser> impl
         if (Objects.nonNull(count) && count > 0) {
             throw new BusinessException("用户名称已存在！");
         }
-        user.setDelFlag(Constants.NOT_DEL_FALG);
+        user.setDelFlag(Constants.NOT_DEL_FLAG);
         user.setCreateTime(LocalDateTime.now());
         // 密码加密
         PasswordEncoder passwordEncoder = new BCryptPasswordEncoder();
